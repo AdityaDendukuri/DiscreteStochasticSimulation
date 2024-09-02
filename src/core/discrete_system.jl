@@ -1,8 +1,7 @@
 using Catalyst
 
-struct DiscreteStochasticSystem
-  forward::Array{Function}
-  backward::Array{Function}
+struct DiscreteStochasticSystem{ElementType}
+  stoichvecs::Array{ElementType}
   propensities::Array{Function}
 end
 
@@ -17,13 +16,8 @@ function DiscreteStochasticSystem(reaction_system::ReactionSystem)
   P = Catalyst.get_ps(reaction_system)
 
   # for each reaction, define a forward reaction
-  forward = map(reaction_system |> netstoichmat |> eachcol) do stoichvec
-    x -> x + CartesianIndex(stoichvec...)
-  end
-
-  # for each reaction, define a backward reaction
-  backward = map(reaction_system |> netstoichmat |> eachcol) do stoichvec
-    x -> x - CartesianIndex(stoichvec...)
+  stoichvecs = map(reaction_system |> netstoichmat |> eachcol) do stoichvec
+    CartesianIndex(stoichvec...)
   end
 
   # for each reaction, define a propensity function
@@ -32,15 +26,21 @@ function DiscreteStochasticSystem(reaction_system::ReactionSystem)
     build_function(eqn, X, P, expression=Val{false})
   end
 
-  DiscreteStochasticSystem(forward, backward, propensities)
+  DiscreteStochasticSystem{CartesianIndex}(stoichvecs, propensities)
 end
 
+"""
+    GetStoichvecs(system::DiscreteStochasticSystem)
+
+TBW
+"""
+stoichvecs(system::DiscreteStochasticSystem) = system.stoichvecs
+
+"""
+    GetPropensities(system::DiscreteStochasticSystem)
+
+TBW
+"""
+propensities(system::DiscreteStochasticSystem, i) = system.propensities[i]
 
 export DiscreteStochasticSystem
-
-
-
-
-
-
-

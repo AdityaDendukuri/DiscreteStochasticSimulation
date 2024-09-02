@@ -13,7 +13,7 @@ end
 
 TBW
 """
-function FindElement(X::Element, states::Set{Element}) where {Element}
+function FindElement(X::Element, states::Union{Set{Element},Vector{Element}}) where {Element}
   findfirst(x -> x == X, states |> collect)
 end
 

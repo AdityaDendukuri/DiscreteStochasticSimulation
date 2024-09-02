@@ -10,7 +10,7 @@ experiment = begin
   rn = @reaction_network begin
     k₁, 0 --> X
     k₂, X --> 0
-    k₃, X + Y --> Y
+    k₃, X + Y --> 2Y
     k₄, Y --> 0
   end
 
@@ -29,5 +29,6 @@ experiment = begin
   X = Expand!(X, model, boundary_condition, 2)
 
   # source states
-  MasterOperator(X, model, boundary_condition)
+  MasterOperator(X, model, boundary_condition, 0)
+
 end

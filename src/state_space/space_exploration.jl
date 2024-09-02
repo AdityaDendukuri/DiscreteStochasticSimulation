@@ -4,9 +4,9 @@
 TBW
 """
 function GetReachableStates(x::Element, model::Model, boundary_condition::Function) where {Element,Model}
-  map(model.forward) do f
-    y = f(x)
-    boundary_condition(y) ? y : x
+  map(model.stoichvecs) do S
+    x_ = x + S
+    boundary_condition(x_) ? x_ : x
   end |> Set
 end
 
@@ -16,9 +16,9 @@ end
 TBW
 """
 function GetSourceStates(x::Element, model::Model, boundary_condition::Function) where {Element,Model}
-  map(model.backward) do f
-    y = f(x)
-    boundary_condition(y) ? y : x
+  map(model.stoichvecs) do S
+    x_ = x - S
+    boundary_condition(x_) ? x_ : x
   end |> Set
 end
 
