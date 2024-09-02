@@ -3,7 +3,7 @@
 
 TBW
 """
-function MasterOperator(states::Set{ElementType}, model::ModelType, boundary_condition::Function, t::T) where {T,ElementType,ModelType}
+function MasterOperator(states::Set{ElementType}, model::ModelType, rates::Array{T}, boundary_condition::Function, t::T) where {T,ElementType,ModelType}
 
   # get all source state ids  (stats from which the current state is reachable)
   state_vec = collect(states)
@@ -21,23 +21,23 @@ function MasterOperator(states::Set{ElementType}, model::ModelType, boundary_con
     # get the reaction responsible for the edge 
     i, j = edge
     Xᵢ, Xⱼ = state_vec[i], state_vec[j]
-    k = FindElement(Xᵢ - Xⱼ, stoichvecs(model))
+    k = FindElement(Xⱼ - Xᵢ, stoichvecs(model))
     # set propensity value 
-    a = propensities(model, k)(Xᵢ, t)
-    a
+    model.propensities[k](Xᵢ, rates, t)
   end
 
   # compute diagonal values 
   diag_values = map(state_vec |> enumerate) do state
     i, x = state
     reachable_states = GetReachableStates(x, model, boundary_condition)
-    sum([propensities(state, i) for (i, state) in enumerate(reachable_states)])
+    sum([model.propensities[i](state, rates, t) for (i, state) in enumerate(reachable_states)])
   end
 
   # add diagonal indices in sparse representation 
   I = [I; collect(1:length(state_vec))]
   J = [J; collect(1:length(state_vec))]
   K = [edge_values; diag_values]
+
 
   sparse(I, J, K)
 

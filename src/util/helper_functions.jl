@@ -35,7 +35,7 @@ end
 TBW
 """
 function FilterEmptyValues(X::Vector{Union{Nothing,T}}) where {T}
-  filter(x -> !isnothing(x), X) |> Vector{T}
+  X = filter(x -> !isnothing(x), X) |> Vector{T}
 end
 
 """

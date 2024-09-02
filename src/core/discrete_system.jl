@@ -29,18 +29,8 @@ function DiscreteStochasticSystem(reaction_system::ReactionSystem)
   DiscreteStochasticSystem{CartesianIndex}(stoichvecs, propensities)
 end
 
-"""
-    GetStoichvecs(system::DiscreteStochasticSystem)
-
-TBW
-"""
+# getters 
 stoichvecs(system::DiscreteStochasticSystem) = system.stoichvecs
-
-"""
-    GetPropensities(system::DiscreteStochasticSystem)
-
-TBW
-"""
-propensities(system::DiscreteStochasticSystem, i) = system.propensities[i]
+propensities(system::DiscreteStochasticSystem) = system.propensities
 
 export DiscreteStochasticSystem

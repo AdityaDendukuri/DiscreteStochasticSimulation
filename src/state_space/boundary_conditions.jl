@@ -7,4 +7,10 @@ function RectLatticeBoundaryCondition(X::CartesianIndex, bound::Tuple)
   lower && upper && all_pos
 end
 
+function RectLatticeBoundaryCondition(X::CartesianIndex, bound::Int)
+  lower = all(Tuple(X) .> 0)
+  upper = all(Tuple(X) .< bound)
+  lower && upper
+end
+
 export RectLatticeBoundaryCondition

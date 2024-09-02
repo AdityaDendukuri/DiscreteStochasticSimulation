@@ -1,1 +1,1 @@
-# Discrete Stochastic Simulation Julia Package 
+# Discrete Stochastic Simulation 
