@@ -43,8 +43,8 @@ end
 
 TBW
 """
-function FilterEmptyValues(X::Vector)
-  filter(x -> !isnothing(x), X)
+function FilterEmptyValues(X::Vector{T}) where {T}
+  filter(x -> !isnothing(x), X) |> Vector{T}
 end
 
 """
