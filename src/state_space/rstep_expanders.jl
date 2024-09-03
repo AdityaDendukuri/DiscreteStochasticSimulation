@@ -1,4 +1,3 @@
-
 """
     Expand1!(X::Set{Element}, model::Model, boundary_condition::Function) where {Element,Model}
 
