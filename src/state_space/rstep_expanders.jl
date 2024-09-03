@@ -6,7 +6,7 @@ TBW
 """
 function Expand1!(X::Set{Element}, model::Model, boundary_condition::Function) where {Element,Model}
   map(X |> collect) do x
-    X = X ∪ GetReachableStates(x, model, boundary_condition)
+    X = X ∪ ExpandForward(x, model, boundary_condition)
   end |> Set |> CombineSets
 end
 
@@ -22,4 +22,4 @@ function Expand!(X::Set{Element}, model::Model, boundary_condition::Function, N:
   return X
 end
 
-export Expand1!, Expand!, GetSourceStates
+export Expand1!, Expand!

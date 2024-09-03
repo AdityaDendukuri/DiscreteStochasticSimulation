@@ -3,7 +3,7 @@
 
 TBW
 """
-function GetReachableStates(x::Element, model::Model, boundary_condition::Function) where {Element,Model}
+function ExpandForward(x::Element, model::Model, boundary_condition::Function) where {Element,Model}
   map(model.stoichvecs) do S
     x_ = x + S
     boundary_condition(x_) ? x_ : nothing
@@ -15,9 +15,10 @@ end
 
 TBW
 """
-function GetSourceStates(x::Element, model::Model, boundary_condition::Function) where {Element,Model}
+function ExpandBackward(x::Element, model::Model, boundary_condition::Function) where {Element,Model}
   map(model.stoichvecs) do S
     x_ = x - S
     boundary_condition(x_) ? x_ : nothing
   end |> FilterEmptyValues |> Set
 end
+

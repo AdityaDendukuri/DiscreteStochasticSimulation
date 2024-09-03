@@ -35,7 +35,7 @@ end
 TBW
 """
 function FilterEmptyValues(X::Vector{Union{Nothing,T}}) where {T}
-  X = filter(x -> !isnothing(x), X) |> Vector{T}
+  filter(x -> !isnothing(x), X) |> Vector{T}
 end
 
 """
@@ -43,6 +43,24 @@ end
 
 TBW
 """
-function FilterEmptyValues(X::Vector{T}) where {T}
+function FilterEmptyValues(X::Vector)
   filter(x -> !isnothing(x), X)
+end
+
+"""
+    Make1D(X::Vector{Vector{ElementType}}) where {ElementType}
+
+TBW
+"""
+
+function Make1D(X::Vector{Vector})
+  vcat(X...)
+end
+"""
+    Make1D(X::Vector{Vector{ElementType}}) where {ElementType}
+
+TBW
+"""
+function Make1D(X::Vector{Vector{ElementType}}) where {ElementType}
+  vcat(X...)
 end
