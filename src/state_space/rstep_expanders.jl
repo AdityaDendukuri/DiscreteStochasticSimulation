@@ -21,4 +21,15 @@ function Expand!(X::Set{Element}, model::Model, boundary_condition::Function, N:
   return X
 end
 
-export Expand1!, Expand!
+"""
+    Purge!(X::Set{Element}, p::Vector{T}, percentage::Number) where {Element,T}
+
+TBW
+"""
+function Purge!(X::Set{Element}, p::Vector{T}, percentage::Number) where {Element,T}
+  X_ = X |> collect
+  idxs = FindLowestValuesPercent(p, percentage)
+  setdiff(X, Set(X_[idxs]))
+end
+
+export Expand1!, Expand!, Purge!

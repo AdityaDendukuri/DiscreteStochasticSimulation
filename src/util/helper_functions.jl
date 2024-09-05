@@ -74,3 +74,16 @@ function PrintMatSorted(A, X)
   idxs = sortperm([x[1] for x ∈ collect(X)])
   display(A[idxs, idxs])
 end
+export PrintMatSorted
+
+"""
+    PurgeSpacePerCent(p::Vector{T}, d::Number) where {T}
+
+TBW
+"""
+function FindLowestValuesPercent(p::Vector{T}, d::Number) where {T}
+  x_decimal = d / 100
+  num_elements = ceil(Int, length(p) * x_decimal)
+  sortperm(p)[1:num_elements]
+end
+
