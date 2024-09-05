@@ -5,7 +5,7 @@ Solves the chemical master equation (and others!) using finite state projection 
 
 **Early Stage:**
 
-More features and docs coming soon! Look at the `lotka_volterra_notebook.ipynb` for a quick demo. 
+More features and docs coming soon! Look at the jupyter notebook titled `lotka_volterra_notebook.ipynb` for a quick demo. 
 
 **Dependencies:**
 
