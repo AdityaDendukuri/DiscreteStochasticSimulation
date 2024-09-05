@@ -64,3 +64,13 @@ TBW
 function Make1D(X::Vector{Vector{ElementType}}) where {ElementType}
   vcat(X...)
 end
+
+"""
+    PrintMatSorted(A, X)
+
+TBW
+"""
+function PrintMatSorted(A, X)
+  idxs = sortperm([x[1] for x ∈ collect(X)])
+  display(A[idxs, idxs])
+end

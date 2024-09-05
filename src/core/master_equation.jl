@@ -35,7 +35,7 @@ function MasterEquationNonDiagonal(matrix_values::MasterOperatorIngredients)
       k = FindElement(S, model.stoichvecs)
       α = model.propensities[k](xⱼ, rates, t)
       # define sparse matrix entry 
-      (j, i, α)
+      (i, j, α)
     end
   end |> Make1D
 
@@ -63,7 +63,7 @@ function MasterEquationDiagonal(matrix_values::MasterOperatorIngredients)
       xⱼ = xᵢ + S
       α = model.propensities[k](xⱼ, rates, t)
     end |> sum
-    (i, α)
+    (i, -α)
   end
 
   # construct sparse matrix
