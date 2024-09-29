@@ -1,6 +1,3 @@
-
-
-using Catalyst: spatial_convert_err
 include("../src/DiscreteStochasticSimulation.jl")
 using .DiscreteStochasticSimulation
 using Catalyst
@@ -16,7 +13,6 @@ experiment = begin
     k₂, X + Y --> 2Y
     k₃, Y --> 0
   end
-
 
   # define discrete stochastic system
   model = DiscreteStochasticSystem(rn)
@@ -40,17 +36,18 @@ experiment = begin
   δt = 0.01
   global iter = 0
   global pₜ = p₀
-  a = @animate for t ∈ 0:0.01:10
+  println("loop starting")
+  a = @animate for t ∈ 0:δt:10
     #expand space and assemble matrix
-    X, pₜ = Expand!(X, pₜ, model, boundary_condition, 7)
+    X, pₜ = Expand!(X, pₜ, model, boundary_condition, 6)
     A = MasterEquation(X, model, [1.0, 0.005, 0.6], boundary_condition, t)
 
     # solve system and normalize 
     global pₜ = expmv(δt, A, pₜ)
     pₜ /= sum(pₜ)
 
-    # purge lowest 80% probability states
-    X, pₜ = Purge!(X, pₜ, 80)
+    # purge lowest 40% probability states
+    X, pₜ = Purge!(X, pₜ, 40)
 
     # set probability values to full space for visualization 
     P1 .= 0
