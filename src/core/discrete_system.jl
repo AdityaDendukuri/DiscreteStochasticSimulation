@@ -5,7 +5,6 @@ struct DiscreteStochasticSystem{ElementType}
   propensities::Array{Function}
 end
 
-
 """
     DiscreteStochasticSystem(reaction_system::ReactionSystem)
 
